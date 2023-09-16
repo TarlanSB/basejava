@@ -1,14 +1,16 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final Resume[] storage = new Resume[10000];
-    private static int size;
+    private static final int STORAGE_LIMIT = 10000;
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
+    private int size;
     private int index;
 
     public void clear() {
@@ -25,25 +27,15 @@ public class ArrayStorage {
             System.out.println("Переполнение storage");
             return;
         }
-        if (isEqual(r.getUuid())) {
+        if (getIndex(r.getUuid()) > 0) {
             System.out.println("Резюме \"" + r + "\" уже существует");
         } else {
             storage[size++] = r;
         }
     }
 
-    boolean isEqual(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                index = i;
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void update(Resume r) {
-        if (isEqual(r.getUuid())) {
+        if (getIndex(r.getUuid()) >= 0) {
             storage[index] = r;
             System.out.println("Резюме с uuid \"" + r.getUuid() + "\" обновилось");
         } else {
@@ -56,7 +48,7 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (isEqual(uuid)) {
+        if (getIndex(uuid) >= 0) {
             return storage[index];
         }
         info(uuid);
@@ -64,7 +56,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (isEqual(uuid)) {
+        if (getIndex(uuid) >= 0) {
             storage[index] = storage[size - 1];
             storage[size--] = null;
         } else {
@@ -77,5 +69,14 @@ public class ArrayStorage {
      */
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
+    }
+
+    protected int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return index = i;
+            }
+        }
+        return -1;
     }
 }
