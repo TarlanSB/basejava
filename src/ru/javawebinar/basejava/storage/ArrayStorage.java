@@ -22,10 +22,9 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (size == storage.length) {
+        if (size >= storage.length) {
             System.out.println("Переполнение storage");
-        } else if (index >= 0) {
+        } else if (getIndex(r.getUuid()) >= 0) {
             System.out.println("Резюме \"" + r + "\" уже существует");
         } else {
             storage[size++] = r;
