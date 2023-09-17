@@ -1,6 +1,6 @@
-package com.urise.webapp.storage;
+package ru.javawebinar.basejava.storage;
 
-import com.urise.webapp.model.Resume;
+import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
@@ -23,7 +23,7 @@ public class ArrayStorage {
 
     public void save(Resume r) {
         int index = getIndex(r.getUuid());
-        if (size > storage.length) {
+        if (size == storage.length) {
             System.out.println("Переполнение storage");
         } else if (index >= 0) {
             System.out.println("Резюме \"" + r + "\" уже существует");
