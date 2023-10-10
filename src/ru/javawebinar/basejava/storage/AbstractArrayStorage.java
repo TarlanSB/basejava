@@ -10,6 +10,45 @@ public abstract class AbstractArrayStorage implements Storage {
     protected int size;
 
     @Override
+    public final void save(Resume r) {
+        if (size >= STORAGE_LIMIT) {
+            System.out.println("Переполнение storage");
+        } else if (getIndex(r.getUuid()) >= 0) {
+            System.out.println("Резюме \"" + r + "\" уже существует");
+        } else if (size == 0) {
+            storage[size++] = r;
+        } else {
+            add(r);
+            size++;
+        }
+    }
+
+    @Override
+    public final void delete(String uuid) {
+        int index = getIndex(uuid);
+        if (index < 0) {
+            info(uuid);
+        } else {
+            remove(index);
+        }
+    }
+
+    @Override
+    public final void update(Resume r) {
+        int index = getIndex(r.getUuid());
+        if (index >= 0) {
+            storage[index] = r;
+            System.out.println("Резюме с uuid \"" + r.getUuid() + "\" обновилось");
+        } else {
+            info(r.getUuid());
+        }
+    }
+
+    void info(String uuid) {
+        System.out.println("Такого резюме с uuid \"" + uuid + "\" нет");
+    }
+
+    @Override
     public int size() {
         return size;
     }
@@ -23,12 +62,6 @@ public abstract class AbstractArrayStorage implements Storage {
         info(uuid);
         return null;
     }
-
-    void info(String uuid) {
-        System.out.println("Такого резюме с uuid \"" + uuid + "\" нет");
-    }
-
-    protected abstract int getIndex(String uuid);
 
     @Override
     public void clear() {
@@ -44,14 +77,9 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOf(storage, size);
     }
 
-    @Override
-    public final void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index >= 0) {
-            storage[index] = r;
-            System.out.println("Резюме с uuid \"" + r.getUuid() + "\" обновилось");
-        } else {
-            info(r.getUuid());
-        }
-    }
+    protected abstract int getIndex(String uuid);
+
+    protected abstract void add(Resume r);
+
+    protected abstract void remove(int index);
 }
