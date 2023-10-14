@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -11,10 +14,10 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public final void save(Resume r) {
-        if (size >= STORAGE_LIMIT) {
-            System.out.println("Переполнение storage");
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
         } else if (getIndex(r.getUuid()) >= 0) {
-            System.out.println("Резюме \"" + r + "\" уже существует");
+            throw new ExistStorageException(r.getUuid());
         } else if (size == 0) {
             storage[size++] = r;
         } else {
@@ -27,9 +30,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            info(uuid);
+            throw new NotExistStorageException(uuid);
         } else {
             remove(index);
+            storage[size--] = null;
         }
     }
 
@@ -40,12 +44,8 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[index] = r;
             System.out.println("Резюме с uuid \"" + r.getUuid() + "\" обновилось");
         } else {
-            info(r.getUuid());
+            throw new NotExistStorageException(r.getUuid());
         }
-    }
-
-    void info(String uuid) {
-        System.out.println("Такого резюме с uuid \"" + uuid + "\" нет");
     }
 
     @Override
@@ -59,8 +59,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             return storage[index];
         }
-        info(uuid);
-        return null;
+        throw new NotExistStorageException(uuid);
     }
 
     @Override
