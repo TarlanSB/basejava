@@ -3,7 +3,6 @@ package ru.javawebinar.basejava.storage;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     private final static SortedArrayStorage storage = new SortedArrayStorage();
