@@ -17,11 +17,13 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int insertionPoint = Math.abs(getIndex(r.getUuid()) + 1);
         System.arraycopy(storage, insertionPoint, storage, insertionPoint + 1, size - insertionPoint);
         storage[insertionPoint] = r;
+        size++;
     }
 
     @Override
     protected void remove(int index) {
         System.arraycopy(storage, index + 1, storage, index, size - 1);
+        reduceSize();
     }
 }
 
