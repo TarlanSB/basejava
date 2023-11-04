@@ -27,8 +27,9 @@ public class ListStorageTest {
     }
 
     @Test
-    public void getIndex() {
-        Assert.assertEquals(0, listStorage.getIndex(UUID_1));
+    public void getSearchKey() {
+        Integer expected = 0;
+        Assert.assertEquals(expected, listStorage.getSearchKey(UUID_1));
     }
 
     @Test
