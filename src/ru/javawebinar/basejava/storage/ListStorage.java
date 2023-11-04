@@ -10,24 +10,8 @@ public class ListStorage extends AbstractStorage {
     List<Resume> storageList = new ArrayList<>();
 
     @Override
-    protected int getIndex(String uuid) {
-        Resume resume = new Resume(uuid);
-        return storageList.contains(resume) ? storageList.indexOf(resume) : -1;
-    }
-
-    @Override
     public void clear() {
         storageList.clear();
-    }
-
-    @Override
-    public int size() {
-        return storageList.size();
-    }
-
-    @Override
-    protected void add(Resume r) {
-        storageList.add(r);
     }
 
     @Override
@@ -36,22 +20,43 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void remove(int index) {
-        storageList.remove(index);
+    public int size() {
+        return storageList.size();
     }
 
     @Override
-    protected boolean isSizeLimit() {
-        return storageList.size() == Integer.MAX_VALUE;
+    protected Integer getSearchKey(String uuid) {
+        Resume resume = new Resume(uuid);
+        for (int i = 0; i < storageList.size(); i++) {
+            if (storageList.get(i).equals(resume)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
-    protected void updateResume(int index, Resume r) {
-        storageList.set(index, r);
+    protected void insertElement(Object searchKey, Resume r) {
+        storageList.add(r);
     }
 
     @Override
-    protected Resume getResumeByIndex(int index) {
-        return storageList.get(index);
+    protected void remove(Object searchKey) {
+        storageList.remove(getResumeByIndex(searchKey));
+    }
+
+    @Override
+    protected void updateResume(Object searchKey, Resume r) {
+        storageList.set((Integer) searchKey, r);
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (Integer) searchKey >= 0;
+    }
+
+    @Override
+    protected Resume getResumeByIndex(Object searchKey) {
+        return storageList.get((Integer) searchKey);
     }
 }
