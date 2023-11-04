@@ -7,22 +7,24 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
     @Override
-    protected void add(Resume r) {
-        int insertionPoint = Math.abs(getIndex(r.getUuid()) + 1);
-        System.arraycopy(storage, insertionPoint, storage, insertionPoint + 1, size - insertionPoint);
-        storage[insertionPoint] = r;
-        size++;
+    protected void insertElement(Object searchKey, Resume r) {
+        if(isNotSizeLimit(r)) {
+            int insertionPoint = -(Integer) searchKey - 1;
+            System.arraycopy(storage, insertionPoint, storage, insertionPoint + 1, size - insertionPoint);
+            storage[insertionPoint] = r;
+            size++;
+        }
     }
 
     @Override
-    protected void remove(int index) {
-        System.arraycopy(storage, index + 1, storage, index, size - 1);
+    protected void remove(Object searchKey) {
+        System.arraycopy(storage, (Integer) searchKey + 1, storage, (Integer) searchKey, size - 1);
         reduceSize();
     }
 }
