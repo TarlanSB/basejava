@@ -14,7 +14,8 @@ public class SortedArrayStorageTest extends AbstractArrayStorageTest {
     }
 
     @Test
-    public void getIndex() {
-        Assert.assertEquals(0, storage.getIndex(UUID_1));
+    public void getSearchKey() {
+        Integer expected = 0;
+        Assert.assertEquals(expected, storage.getSearchKey(UUID_1));
     }
 }
