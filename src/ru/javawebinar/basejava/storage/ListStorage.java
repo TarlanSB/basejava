@@ -2,33 +2,26 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ListStorage extends AbstractStorage {
 
-    List<Resume> storageList = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
 
     @Override
     public void clear() {
-        storageList.clear();
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return storageList.toArray(new Resume[0]);
+        storage.clear();
     }
 
     @Override
     public int size() {
-        return storageList.size();
+        return storage.size();
     }
 
     @Override
     protected Integer getSearchKey(String uuid) {
-        Resume resume = new Resume(uuid);
-        for (int i = 0; i < storageList.size(); i++) {
-            if (storageList.get(i).equals(resume)) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
@@ -36,18 +29,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertElement(Object searchKey, Resume r) {
-        storageList.add(r);
+    protected void doSave(Object searchKey, Resume r) {
+        storage.add(r);
     }
 
     @Override
-    protected void remove(Object searchKey) {
-        storageList.remove(getResumeByIndex(searchKey));
+    protected void doDelete(Object searchKey) {
+        storage.remove(doGet(searchKey));
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume r) {
-        storageList.set((Integer) searchKey, r);
+    protected void doUpdate(Object searchKey, Resume r) {
+        storage.set((Integer) searchKey, r);
     }
 
     @Override
@@ -56,7 +49,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResumeByIndex(Object searchKey) {
-        return storageList.get((Integer) searchKey);
+    protected Resume doGet(Object searchKey) {
+        return storage.get((Integer) searchKey);
+    }
+
+    @Override
+    protected List<Resume> doGetAllSorted() {
+        return new ArrayList<>(storage);
     }
 }
