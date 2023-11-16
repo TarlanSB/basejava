@@ -18,7 +18,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void insertElement(Object searchKey, Resume r) {
+    protected void doSave(Object searchKey, Resume r) {
         if(isNotSizeLimit(r)) {
             storage[size] = r;
             size++;
@@ -26,7 +26,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void remove(Object searchKey) {
+    protected void doDelete(Object searchKey) {
         storage[(Integer)searchKey] = storage[size - 1];
         reduceSize();
     }
