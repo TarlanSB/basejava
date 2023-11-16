@@ -4,27 +4,33 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.Comparator;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     @Override
     public final void save(Resume r) {
-        insertElement(getExistingSearchKey(r.getUuid()), r);
+        Object searchKey = getExistingSearchKey(r.getUuid());
+        doSave(searchKey, r);
     }
 
     @Override
     public final void delete(String uuid) {
-        remove(getNotExistingSearchKey(uuid));
+        Object searchKey = getNotExistingSearchKey(uuid);
+        doDelete(searchKey);
     }
 
     @Override
     public final void update(Resume r) {
         Object searchKey = r.getUuid();
-        updateResume(getNotExistingSearchKey(searchKey.toString()), r);
+        doUpdate(getNotExistingSearchKey(searchKey.toString()), r);
     }
 
     @Override
     public final Resume get(String uuid) {
-        return getResumeByIndex(getNotExistingSearchKey(uuid));
+        Object searchKey = getNotExistingSearchKey(uuid);
+        return doGet(searchKey);
     }
 
 
@@ -44,15 +50,27 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
-    protected abstract Resume getResumeByIndex(Object searchKey);
+    @Override
+    public List<Resume> getAllSorted() {
+        Comparator<Resume> comparator = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+        List<Resume> list = doGetAllSorted();
+        list.sort(comparator);
+        return list;
+    }
+
+
+
+    protected abstract Resume doGet(Object searchKey);
 
     protected abstract Object getSearchKey(String uuid);
 
-    protected abstract void insertElement(Object searchKey, Resume r);
+    protected abstract void doSave(Object searchKey, Resume r);
 
-    protected abstract void remove(Object searchKey);
+    protected abstract void doDelete(Object searchKey);
 
-    protected abstract void updateResume(Object searchKey, Resume r);
+    protected abstract void doUpdate(Object searchKey, Resume r);
 
     protected abstract boolean isExist(Object searchKey);
+
+    protected abstract List <Resume> doGetAllSorted();
 }
