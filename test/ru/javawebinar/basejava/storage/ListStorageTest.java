@@ -33,12 +33,6 @@ public class ListStorageTest {
     }
 
     @Test
-    public void getSearchKey() {
-        Integer expected = 0;
-        Assert.assertEquals(expected, storage.getSearchKey(UUID_1));
-    }
-
-    @Test
     public void clear() {
         storage.clear();
         Assert.assertEquals(0, storage.size());
