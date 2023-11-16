@@ -118,4 +118,10 @@ public abstract class AbstractArrayStorageTest {
         }
         storage.save(new Resume("Overflow"));
     }
+
+    @Test
+    public void getSearchKey() {
+        Integer expected = 0;
+        Assert.assertEquals(expected, storage.getSearchKey(UUID_1));
+    }
 }
