@@ -58,11 +58,9 @@ public abstract class AbstractStorage implements Storage {
         return list;
     }
 
-
+    public abstract Object getSearchKey(String uuid);
 
     protected abstract Resume doGet(Object searchKey);
-
-    protected abstract Object getSearchKey(String uuid);
 
     protected abstract void doSave(Object searchKey, Resume r);
 
