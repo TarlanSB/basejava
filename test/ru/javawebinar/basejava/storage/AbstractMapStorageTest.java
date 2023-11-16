@@ -80,7 +80,6 @@ public abstract class AbstractMapStorageTest {
         Assert.assertEquals(resume, storage.get(resume.getUuid()));
     }
 
-
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
         storage.get(UUID_NOT_EXIST);
@@ -92,23 +91,6 @@ public abstract class AbstractMapStorageTest {
         assertGet(RESUME_4);
         assertSize(4);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Test
     public void clear() {
@@ -123,8 +105,8 @@ public abstract class AbstractMapStorageTest {
         Assert.assertEquals(expected, storage.getAllSorted());
     }
 
-
-
-
-
+    @Test
+    public void getSearchKey() {
+        Assert.assertEquals(UUID_1, storage.getSearchKey(UUID_1));
+    }
 }
