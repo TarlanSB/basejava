@@ -22,19 +22,4 @@ public abstract class AbstractMapStorage extends AbstractStorage {
     public int size() {
         return storage.size();
     }
-
-    @Override
-    public String getSearchKey(String uuid) {
-        return uuid;
-    }
-
-    @Override
-    protected Resume doGet(Object searchKey) {
-        return storage.get((String) searchKey);
-    }
-
-    @Override
-    protected void doDelete(Object searchKey) {
-        storage.remove((String) searchKey);
-    }
 }
