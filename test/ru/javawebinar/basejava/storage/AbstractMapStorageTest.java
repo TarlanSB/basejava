@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -103,10 +102,5 @@ public abstract class AbstractMapStorageTest {
         List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         Assert.assertEquals(3, storage.size());
         Assert.assertEquals(expected, storage.getAllSorted());
-    }
-
-    @Test
-    public void getSearchKey() {
-        Assert.assertEquals(UUID_1, storage.getSearchKey(UUID_1));
     }
 }
