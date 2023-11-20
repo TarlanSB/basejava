@@ -18,4 +18,19 @@ public class MapUuidStorage extends AbstractMapStorage {
     protected boolean isExist(Object searchKey) {
         return storage.containsKey((String) searchKey);
     }
+
+    @Override
+    public String getSearchKey(String uuid) {
+        return uuid;
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        return storage.get((String) searchKey);
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+        storage.remove((String) searchKey);
+    }
 }
