@@ -33,8 +33,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> doGetAllSorted() {
-        Resume[] sortedResumes = Arrays.copyOf(storage, size());
-        return new ArrayList<>(Arrays.asList(sortedResumes));
+        return Arrays.asList(Arrays.copyOf(storage, size()));
     }
 
     protected boolean isNotSizeLimit(Resume r) {

@@ -15,7 +15,7 @@ public abstract class AbstractMapStorage extends AbstractStorage {
 
     @Override
     public List<Resume> doGetAllSorted() {
-        return new ArrayList<>(storage.values());
+        return Collections.emptyList();
     }
 
     @Override

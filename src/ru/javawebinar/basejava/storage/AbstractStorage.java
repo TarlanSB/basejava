@@ -60,7 +60,7 @@ public abstract class AbstractStorage implements Storage {
         return list;
     }
 
-    public abstract Object getSearchKey(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 
     protected abstract Resume doGet(Object searchKey);
 
