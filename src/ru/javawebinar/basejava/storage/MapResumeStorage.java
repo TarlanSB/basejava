@@ -2,8 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-public class
-MapResumeStorage extends AbstractMapStorage {
+public class MapResumeStorage extends AbstractMapStorage {
 
     @Override
     protected void doSave(Object searchKey, Resume r) {
