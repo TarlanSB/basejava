@@ -16,7 +16,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume r) {
+    protected void doSave( Integer searchKey, Resume r) {
         if (isNotSizeLimit(r)) {
             int insertionPoint = -(Integer) searchKey - 1;
             System.arraycopy(storage, insertionPoint, storage, insertionPoint + 1, size - insertionPoint);
@@ -26,8 +26,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        System.arraycopy(storage, (Integer) searchKey + 1, storage, (Integer) searchKey, size - 1);
+    protected void doDelete(Integer searchKey) {
+        System.arraycopy(storage, searchKey + 1, storage, searchKey, size - 1);
         reduceSize();
     }
 }
