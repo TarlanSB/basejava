@@ -72,40 +72,35 @@ public class ResumeTestData {
 
     protected AbstractSection education = new CompanySection(Arrays.asList(company3));
 
-    protected static Map<ContactType, AbstractSection> contacts = new LinkedHashMap<>();
-    protected static Map<SectionType, AbstractSection> sections = new LinkedHashMap<>();
-
-
     public ResumeTestData() {
-        contacts.put(ContactType.MOBILE_PHONE, mobilePhone);
-        contacts.put(ContactType.SKYPE, skype);
-        contacts.put(ContactType.EMAIL, email);
-        contacts.put(ContactType.LINKEDIN, linkedIn);
-        contacts.put(ContactType.GITHUB, github);
-        contacts.put(ContactType.STACKOVERFLOW, stackoverflow);
-        contacts.put(ContactType.HOME_PAGE, homePage);
-
-        sections.put(SectionType.PERSONAL, personal);
-        sections.put(SectionType.OBJECTIVE, objective);
-        sections.put(SectionType.ACHIEVEMENT, achievements);
-        sections.put(SectionType.QUALIFICATIONS, qualifications);
-        sections.put(SectionType.EXPERIENCE, experience);
-        sections.put(SectionType.EDUCATION, education);
-
         this.resume = new Resume("Григорий Кислин");
+
+        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
+        resume.getContacts().put(ContactType.SKYPE, skype);
+        resume.getContacts().put(ContactType.EMAIL, email);
+        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
+        resume.getContacts().put(ContactType.GITHUB, github);
+        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
+        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
+
+        resume.getSections().put(SectionType.PERSONAL, personal);
+        resume.getSections().put(SectionType.OBJECTIVE, objective);
+        resume.getSections().put(SectionType.ACHIEVEMENT, achievements);
+        resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
+        resume.getSections().put(SectionType.EXPERIENCE, experience);
+        resume.getSections().put(SectionType.EDUCATION, education);
     }
 
     public static void main(String[] args) {
-
         ResumeTestData resumeTestData = new ResumeTestData();
 
         System.out.println(resumeTestData.getResume());
 
-        for (Map.Entry<ContactType, AbstractSection> entry : contacts.entrySet()) {
+        for (Map.Entry<ContactType, AbstractSection> entry : resumeTestData.getResume().getContacts().entrySet()) {
             System.out.println(entry.getKey().getTitle() + " " + entry.getValue());
         }
 
-        for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+        for (Map.Entry<SectionType, AbstractSection> entry : resumeTestData.getResume().getSections().entrySet()) {
             System.out.println("\n" + entry.getKey().getTitle() + ":\n" + entry.getValue());
         }
     }
@@ -113,7 +108,6 @@ public class ResumeTestData {
     public Resume getResume() {
         return resume;
     }
-
 
     @Override
     public boolean equals(Object o) {
