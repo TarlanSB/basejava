@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
-    List<Company> companies;
+    private final List<Company> companies;
 
     public CompanySection(List<Company> companies) {
+        Objects.requireNonNull(companies, "organizations must not be null");
         this.companies = companies;
     }
 
@@ -29,6 +30,6 @@ public class CompanySection extends AbstractSection {
 
     @Override
     public String toString() {
-        return companies + "";
+        return companies.toString();
     }
 }

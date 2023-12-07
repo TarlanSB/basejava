@@ -10,8 +10,8 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     protected String fullName;
 
-    private final Map<SectionType, AbstractSection> sections = new LinkedHashMap<>();
-    private final Map<ContactType, AbstractSection> contacts = new LinkedHashMap<>();
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -41,9 +41,12 @@ public class Resume implements Comparable<Resume> {
         return sections;
     }
 
-    public Map<ContactType, AbstractSection> getContacts() {
+    public Map<ContactType, String> getContacts() {
         return contacts;
     }
+//public String getContacts(ContactType type) {
+//    return contacts.get(type);
+//}
 
     @Override
     public String toString() {

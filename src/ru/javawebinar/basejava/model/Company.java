@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Company {
-    String name;
-    String website;
-    List<Period> periods;
+    private final String name;
+    private final String website;
+    private final List<Period> periods;
 
     public Company(String name, String website, List<Period> periods) {
         this.name = name;
@@ -43,6 +43,6 @@ public class Company {
     @Override
     public String toString() {
         return name + '\'' +
-                ", website: " + website + "\n" + periods;
+                ", website: " + website + "\n" + periods + "\n";
     }
 }

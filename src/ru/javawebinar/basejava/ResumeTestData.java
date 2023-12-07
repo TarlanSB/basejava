@@ -9,13 +9,13 @@ public class ResumeTestData {
 
     private final Resume resume;
 
-    private final AbstractSection mobilePhone = new TextSection("+7(921) 855-0482");
-    private final AbstractSection skype = new TextSection("grigory.kislin");
-    private final AbstractSection email = new TextSection("gkislin@yandex.ru");
-    private final AbstractSection linkedIn = new TextSection("https://www.linkedin.com/in/gkislin");
-    private final AbstractSection github = new TextSection("https://github.com/gkislin");
-    private final AbstractSection stackoverflow = new TextSection("https://stackoverflow.com/users/548473");
-    private final AbstractSection homePage = new TextSection("http://gkislin.ru/");
+    private final String mobilePhone = "+7(921) 855-0482";
+    private final String skype = "grigory.kislin";
+    private final String email = "gkislin@yandex.ru";
+    private final String linkedIn = "https://www.linkedin.com/in/gkislin";
+    private final String github = "https://github.com/gkislin";
+    private final String stackoverflow = "https://stackoverflow.com/users/548473";
+    private final String homePage = "http://gkislin.ru/";
 
     private final AbstractSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, " +
             "инициативность. Пурист кода и архитектуры.");
@@ -53,7 +53,7 @@ public class ResumeTestData {
     private final Period period2 = new Period(startDate2, endDate2, "Старший разработчик (backend)",
             "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, " +
                     "Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, " +
-                    "авторизация по OAuth1, OAuth2, JWT SSO.\n");
+                    "авторизация по OAuth1, OAuth2, JWT SSO.");
 
     private final Company company2 = new Company("Wrike", "https://www.wrike.com/", Arrays.asList(period2));
 
@@ -96,7 +96,7 @@ public class ResumeTestData {
 
         System.out.println(resumeTestData.getResume());
 
-        for (Map.Entry<ContactType, AbstractSection> entry : resumeTestData.getResume().getContacts().entrySet()) {
+        for (Map.Entry<ContactType, String> entry : resumeTestData.getResume().getContacts().entrySet()) {
             System.out.println(entry.getKey().getTitle() + " " + entry.getValue());
         }
 
@@ -109,27 +109,7 @@ public class ResumeTestData {
         return resume;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ResumeTestData that = (ResumeTestData) o;
-        return Objects.equals(resume, that.resume) && Objects.equals(mobilePhone, that.mobilePhone) &&
-                Objects.equals(skype, that.skype) && Objects.equals(email, that.email) &&
-                Objects.equals(linkedIn, that.linkedIn) && Objects.equals(github, that.github) &&
-                Objects.equals(stackoverflow, that.stackoverflow) && Objects.equals(homePage, that.homePage) &&
-                Objects.equals(personal, that.personal) && Objects.equals(objective, that.objective) &&
-                Objects.equals(achievements, that.achievements) && Objects.equals(qualifications, that.qualifications) &&
-                Objects.equals(startDate1, that.startDate1) && Objects.equals(endDate1, that.endDate1) &&
-                Objects.equals(period1, that.period1) && Objects.equals(company1, that.company1) &&
-                Objects.equals(startDate2, that.startDate2) && Objects.equals(endDate2, that.endDate2) &&
-                Objects.equals(period2, that.period2) && Objects.equals(company2, that.company2) &&
-                Objects.equals(experience, that.experience) && Objects.equals(startDate3, that.startDate3) &&
-                Objects.equals(endDate3, that.endDate3) && Objects.equals(period3, that.period3) &&
-                Objects.equals(startDate4, that.startDate4) && Objects.equals(endDate4, that.endDate4) &&
-                Objects.equals(period4, that.period4) && Objects.equals(company3, that.company3) &&
-                Objects.equals(education, that.education);
-    }
+
 
     @Override
     public int hashCode() {
