@@ -72,9 +72,12 @@ public class ResumeTestData {
 
     protected AbstractSection education = new CompanySection(Arrays.asList(company3));
 
-    public ResumeTestData() {
-        this.resume = new Resume("Григорий Кислин");
+    public ResumeTestData(){
+        this.resume = new Resume("Грикорий Кислин");
+    }
 
+    public Resume createResume(String uuid, String fullName){
+        Resume resume = new Resume(uuid, fullName);
         resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
         resume.getContacts().put(ContactType.SKYPE, skype);
         resume.getContacts().put(ContactType.EMAIL, email);
@@ -89,6 +92,8 @@ public class ResumeTestData {
         resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
         resume.getSections().put(SectionType.EXPERIENCE, experience);
         resume.getSections().put(SectionType.EDUCATION, education);
+
+        return resume;
     }
 
     public static void main(String[] args) {
