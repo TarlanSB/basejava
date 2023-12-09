@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.storage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.ResumeTestData;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
@@ -13,21 +14,23 @@ public class AbstractStorageTest {
 
     protected final Storage storage;
 
+    protected static final ResumeTestData RESUME_FACTORY = new ResumeTestData();
+
     private static final String UUID_1 = "uuid1";
     private static final String FULL_NAME_1 = "fullName1";
-    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
+    private static final Resume RESUME_1 = RESUME_FACTORY.createResume(UUID_1, FULL_NAME_1);
 
     private static final String UUID_2 = "uuid2";
     private static final String FULL_NAME_2 = "fullName2";
-    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
+    private static final Resume RESUME_2 = RESUME_FACTORY.createResume(UUID_2, FULL_NAME_2);
 
     private static final String UUID_3 = "uuid3";
     private static final String FULL_NAME_3 = "fullName3";
-    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
+    private static final Resume RESUME_3 = RESUME_FACTORY.createResume(UUID_3, FULL_NAME_3);
 
     private static final String UUID_4 = "uuid4";
     private static final String FULL_NAME_4 = "fullName4";
-    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
+    private static final Resume RESUME_4 = RESUME_FACTORY.createResume(UUID_4, FULL_NAME_4);
 
     private static final int SIZE = 3;
     private static final String UUID_NOT_EXIST = "dummy";
