@@ -30,7 +30,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected Resume doGet(File file) { // такой же абстрактнй метод как doRead который чтает резюме из файла
+    protected Resume doGet(File file) {
         try {
             return doRead(file);
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void doUpdate(File file, Resume r) {// как в create только без create
+    protected void doUpdate(File file, Resume r) {
         try {
             doWrite(r, file);
         } catch (IOException e) {
@@ -63,40 +63,43 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected List<Resume> doGetAllSorted() { // читает все файлы которые есть в каталоге и читает doRead (doGet ?) и возвращает спико резюме
+    protected List<Resume> doGetAllSorted() {
         List<Resume> list = new ArrayList<>();
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
-            if (!file.isDirectory()) {
-                try {
-                    list.add(doRead(file));
-                } catch (IOException e) {
-                    throw new StorageException("IO error", file.getName(), e);
-                }
-            }
+        for (File file : directoryNonNull(directory).listFiles()) {
+            list.add(doGet(file));
         }
         return list;
     }
 
     @Override
     public void clear() {
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
-            if (!file.isDirectory()) {
-                file.delete();
-            }
+        for (File file : directoryNonNull(directory).listFiles()) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
-        return Objects.requireNonNull(new File(directory.getPath()).list()).length;
+        return directoryNonNull(directory).list().length;
+    }
+
+    @Override
+    protected void doDelete(File file) {
+        if (file.delete()) {
+            System.out.println("File deleted successfully");
+        } else {
+            throw new StorageException("Failed to delete the file", file.getName());
+        }
+    }
+
+    private File directoryNonNull(File directory) {
+        if (directory == null) {
+            throw new StorageException("Directory error", null);
+        }
+        return directory;
     }
 
     protected abstract void doWrite(Resume r, File file) throws IOException;
 
     protected abstract Resume doRead(File file) throws IOException;
-
-    @Override
-    protected void doDelete(File file) {
-        file.delete();
-    }
 }
