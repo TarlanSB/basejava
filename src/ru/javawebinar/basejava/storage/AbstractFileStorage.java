@@ -5,6 +5,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,22 +66,35 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> doGetAllSorted() {
         List<Resume> list = new ArrayList<>();
-        for (File file : directoryNonNull(directory).listFiles()) {
-            list.add(doGet(file));
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                list.add(doGet(file));
+            }
+            return list;
         }
-        return list;
+        throw new StorageException("Directory error", null);
     }
 
     @Override
     public void clear() {
-        for (File file : directoryNonNull(directory).listFiles()) {
-            doDelete(file);
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                doDelete(file);
+            }
+        } else {
+            throw new StorageException("Directory error", null);
         }
     }
 
     @Override
     public int size() {
-        return directoryNonNull(directory).list().length;
+        String[] list = directory.list();
+        if (list != null) {
+            return list.length;
+        }
+        throw new StorageException("Directory error", null);
     }
 
     @Override
@@ -90,13 +104,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         } else {
             throw new StorageException("Failed to delete the file", file.getName());
         }
-    }
-
-    private File directoryNonNull(File directory) {
-        if (directory == null) {
-            throw new StorageException("Directory error", null);
-        }
-        return directory;
     }
 
     protected abstract void doWrite(Resume r, File file) throws IOException;

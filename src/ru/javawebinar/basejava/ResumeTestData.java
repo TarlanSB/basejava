@@ -45,7 +45,7 @@ public class ResumeTestData {
     private final Period period1 = new Period(startDate1, endDate1, "Автор проекта.",
             "Создание, организация и проведение Java онлайн проектов и стажировок");
 
-    private final Company company1 = new Company("Java Online Projects", "http://javaops.ru/",
+    private final Organization company1 = new Organization("Java Online Projects", "http://javaops.ru/",
             Arrays.asList(period1));
 
     private final LocalDate startDate2 = LocalDate.of(2013, 10, 1);
@@ -55,9 +55,9 @@ public class ResumeTestData {
                     "Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, " +
                     "авторизация по OAuth1, OAuth2, JWT SSO.");
 
-    private final Company company2 = new Company("Wrike", "https://www.wrike.com/", Arrays.asList(period2));
+    private final Organization company2 = new Organization("Wrike", "https://www.wrike.com/", Arrays.asList(period2));
 
-    protected AbstractSection experience = new CompanySection(Arrays.asList(company1, company2));
+    protected AbstractSection experience = new OrganizationSection(Arrays.asList(company1, company2));
 
     private final LocalDate startDate3 = LocalDate.of(1993, 9, 1);
     private final LocalDate endDate3 = LocalDate.of(1996, 7, 1);
@@ -66,14 +66,29 @@ public class ResumeTestData {
     private final LocalDate endDate4 = LocalDate.of(1993, 7, 1);
     private final Period period4 = new Period(startDate4, endDate4, "Инженер (программист Fortran, C)", "");
 
-    private final Company company3 = new Company("Санкт-Петербургский национальный исследовательский университет " +
+    private final Organization company3 = new Organization("Санкт-Петербургский национальный исследовательский университет " +
             "информационныхтехнологий, механики и оптики", "http://www.ifmo.ru/",
             Arrays.asList(period3, period4));
 
-    protected AbstractSection education = new CompanySection(Arrays.asList(company3));
+    protected AbstractSection education = new OrganizationSection(Arrays.asList(company3));
 
     public ResumeTestData(){
         this.resume = new Resume("Грикорий Кислин");
+
+        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
+        resume.getContacts().put(ContactType.SKYPE, skype);
+        resume.getContacts().put(ContactType.EMAIL, email);
+        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
+        resume.getContacts().put(ContactType.GITHUB, github);
+        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
+        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
+
+        resume.getSections().put(SectionType.PERSONAL, personal);
+        resume.getSections().put(SectionType.OBJECTIVE, objective);
+        resume.getSections().put(SectionType.ACHIEVEMENT, achievements);
+        resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
+        resume.getSections().put(SectionType.EXPERIENCE, experience);
+        resume.getSections().put(SectionType.EDUCATION, education);
     }
 
     public Resume createResume(String uuid, String fullName){

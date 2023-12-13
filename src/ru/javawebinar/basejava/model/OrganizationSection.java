@@ -3,15 +3,15 @@ package ru.javawebinar.basejava.model;
 import java.util.List;
 import java.util.Objects;
 
-public class CompanySection extends AbstractSection {
-    private final List<Company> companies;
+public class OrganizationSection extends AbstractSection {
+    private final List<Organization> companies;
 
-    public CompanySection(List<Company> companies) {
+    public OrganizationSection(List<Organization> companies) {
         Objects.requireNonNull(companies, "organizations must not be null");
         this.companies = companies;
     }
 
-    public List<Company> getCompanies() {
+    public List<Organization> getCompanies() {
         return companies;
     }
 
@@ -19,7 +19,7 @@ public class CompanySection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CompanySection that = (CompanySection) o;
+        OrganizationSection that = (OrganizationSection) o;
         return Objects.equals(companies, that.companies);
     }
 
