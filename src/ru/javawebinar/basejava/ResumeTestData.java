@@ -3,7 +3,11 @@ package ru.javawebinar.basejava;
 import ru.javawebinar.basejava.model.*;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
+
+import static ru.javawebinar.basejava.util.DateUtil.NOW;
+import static ru.javawebinar.basejava.util.DateUtil.of;
 
 public class ResumeTestData {
 
@@ -40,58 +44,57 @@ public class ResumeTestData {
             "\nLanguages:Java,Scala,Python/Jython/PL-Python,JavaScript,Groovy")
     );
 
-    private final LocalDate startDate1 = LocalDate.of(2013, 10, 1);
-    private final LocalDate endDate1 = LocalDate.now();
-    private final Period period1 = new Period(startDate1, endDate1, "Автор проекта.",
+    private final LocalDate startDate1 = of(2013, Month.OCTOBER);
+    private final LocalDate endDate1 = NOW;
+    private final Organization.Position position1 = new Organization.Position(startDate1, endDate1, "Автор проекта.",
             "Создание, организация и проведение Java онлайн проектов и стажировок");
 
-    private final Organization company1 = new Organization("Java Online Projects", "http://javaops.ru/",
-            Arrays.asList(period1));
+    private final Organization organization1 = new Organization("Java Online Projects", "http://javaops.ru/",
+            position1);
 
-    private final LocalDate startDate2 = LocalDate.of(2013, 10, 1);
-    private final LocalDate endDate2 = LocalDate.of(2016, 1, 1);
-    private final Period period2 = new Period(startDate2, endDate2, "Старший разработчик (backend)",
+    private final LocalDate startDate2 = of(2013, Month.OCTOBER);
+    private final LocalDate endDate2 = of(2016, Month.OCTOBER);
+    private final Organization.Position position2 = new Organization.Position(startDate2, endDate2, "Старший разработчик (backend)",
             "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, " +
                     "Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, " +
                     "авторизация по OAuth1, OAuth2, JWT SSO.");
 
-    private final Organization company2 = new Organization("Wrike", "https://www.wrike.com/", Arrays.asList(period2));
+    private final Organization organization2 = new Organization("Wrike", "https://www.wrike.com/", position2);
 
-    protected AbstractSection experience = new OrganizationSection(Arrays.asList(company1, company2));
+    protected AbstractSection experience = new OrganizationSection(organization1, organization2);
 
-    private final LocalDate startDate3 = LocalDate.of(1993, 9, 1);
-    private final LocalDate endDate3 = LocalDate.of(1996, 7, 1);
-    private final Period period3 = new Period(startDate3, endDate3, "Аспирантура (программист С, С++)", "");
-    private final LocalDate startDate4 = LocalDate.of(1987, 9, 1);
-    private final LocalDate endDate4 = LocalDate.of(1993, 7, 1);
-    private final Period period4 = new Period(startDate4, endDate4, "Инженер (программист Fortran, C)", "");
+    private final LocalDate startDate3 = of(1993, Month.SEPTEMBER);
+    private final LocalDate endDate3 = of(1996, Month.JULY);
+    private final Organization.Position position3 = new Organization.Position(startDate3, endDate3, "Аспирантура (программист С, С++)", "");
+    private final LocalDate startDate4 = of(1987, Month.SEPTEMBER);
+    private final LocalDate endDate4 = of(1993, Month.JULY);
+    private final Organization.Position position4 = new Organization.Position(startDate4, endDate4, "Инженер (программист Fortran, C)", "");
 
-    private final Organization company3 = new Organization("Санкт-Петербургский национальный исследовательский университет " +
-            "информационныхтехнологий, механики и оптики", "http://www.ifmo.ru/",
-            Arrays.asList(period3, period4));
+    private final Organization organization3 = new Organization("Санкт-Петербургский национальный исследовательский университет " +
+            "информационныхтехнологий, механики и оптики", "http://www.ifmo.ru/", position3, position4);
 
-    protected AbstractSection education = new OrganizationSection(Arrays.asList(company3));
+    protected AbstractSection education = new OrganizationSection(organization3);
 
-    public ResumeTestData(){
+    public ResumeTestData() {
         this.resume = new Resume("Грикорий Кислин");
 
-        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
-        resume.getContacts().put(ContactType.SKYPE, skype);
-        resume.getContacts().put(ContactType.EMAIL, email);
-        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
-        resume.getContacts().put(ContactType.GITHUB, github);
-        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
-        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
+        resume.addContact(ContactType.MOBILE_PHONE, mobilePhone);
+        resume.addContact(ContactType.SKYPE, skype);
+        resume.addContact(ContactType.EMAIL, email);
+        resume.addContact(ContactType.LINKEDIN, linkedIn);
+        resume.addContact(ContactType.GITHUB, github);
+        resume.addContact(ContactType.STACKOVERFLOW, stackoverflow);
+        resume.addContact(ContactType.HOME_PAGE, homePage);
 
-        resume.getSections().put(SectionType.PERSONAL, personal);
-        resume.getSections().put(SectionType.OBJECTIVE, objective);
-        resume.getSections().put(SectionType.ACHIEVEMENT, achievements);
-        resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
-        resume.getSections().put(SectionType.EXPERIENCE, experience);
-        resume.getSections().put(SectionType.EDUCATION, education);
+        resume.addSection(SectionType.PERSONAL, personal);
+        resume.addSection(SectionType.OBJECTIVE, objective);
+        resume.addSection(SectionType.ACHIEVEMENT, achievements);
+        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
+        resume.addSection(SectionType.EXPERIENCE, experience);//
+        resume.addSection(SectionType.EDUCATION, education);
     }
 
-    public Resume createResume(String uuid, String fullName){
+    public Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
         resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
         resume.getContacts().put(ContactType.SKYPE, skype);
@@ -130,12 +133,11 @@ public class ResumeTestData {
     }
 
 
-
     @Override
     public int hashCode() {
         return Objects.hash(resume, mobilePhone, skype, email, linkedIn, github, stackoverflow, homePage, personal,
-                objective, achievements, qualifications, startDate1, endDate1, period1, company1, startDate2, endDate2,
-                period2, company2, experience, startDate3, endDate3, period3, startDate4, endDate4, period4, company3,
+                objective, achievements, qualifications, startDate1, endDate1, position1, organization1, startDate2, endDate2,
+                position2, organization2, experience, startDate3, endDate3, position3, startDate4, endDate4, position4, organization3,
                 education);
     }
 

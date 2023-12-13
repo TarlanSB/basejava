@@ -6,15 +6,15 @@ import java.io.IOException;
 
 public class MainFile {
 
-    public static void printFileName(String path) {
+    public static void printDirectoryDeeply(String path) {
         File dir = new File(path);
-        File[] list = dir.listFiles();
-        if (list != null) {
-            for (File name : list) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File name : files) {
                 if (!name.isDirectory()) {
                     System.out.println(name.getName());
                 } else {
-                    printFileName(name.getAbsolutePath());
+                    printDirectoryDeeply(name.getAbsolutePath());
                 }
             }
         }
@@ -47,6 +47,6 @@ public class MainFile {
 
         System.out.println("Рекурсивный обход и вывод имени файлов в каталогах и подкаталогах");
 
-        printFileName("./src/ru/javawebinar/basejava");
+        printDirectoryDeeply("./src/ru/javawebinar/basejava");
     }
 }
