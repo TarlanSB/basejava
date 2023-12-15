@@ -1,4 +1,6 @@
 package ru.javawebinar.basejava.model;
 
-public class AbstractSection {
+import java.io.Serializable;
+
+public class AbstractSection implements Serializable {
 }

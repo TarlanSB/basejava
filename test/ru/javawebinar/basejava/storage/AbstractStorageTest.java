@@ -8,10 +8,12 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.io.File;
 import java.util.List;
 
 public class AbstractStorageTest {
 
+    protected static final File STORAGE_DIR = new File("M:\\dev\\basejava\\storage");
     protected final Storage storage;
 
     protected static final ResumeTestData RESUME_FACTORY = new ResumeTestData();
@@ -63,7 +65,7 @@ public class AbstractStorageTest {
     public void update() throws Exception {
         Resume r = new Resume(UUID_2, UPDATE_FULL_NAME);
         storage.update(r);
-        Assert.assertSame(r, storage.get(UUID_2));
+        Assert.assertEquals(r, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)
