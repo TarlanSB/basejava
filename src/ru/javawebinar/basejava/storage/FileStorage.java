@@ -2,18 +2,21 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.strategy.Serialization;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
+
     private final File directory;
 
-    protected AbstractFileStorage(File directory) {
+    protected Serialization strategy;
+
+    protected FileStorage(File directory) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
@@ -24,6 +27,23 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         this.directory = directory;
     }
 
+    public FileStorage(File directory, Serialization strategy) {
+        this(directory);
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(Serialization strategy) {
+        this.strategy = strategy;
+    }
+
+    public Resume executeStrategy(InputStream is) {
+        try {
+            return strategy.doRead(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     protected File getSearchKey(String uuid) {
         return new File(directory, uuid);
@@ -32,7 +52,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(file)));
+            return strategy.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", file.getName(), e);
         }
@@ -51,7 +71,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(File file, Resume r) {
         try {
-            doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
+            strategy.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File write error", file.getName(), e);
         }
@@ -102,8 +122,4 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new StorageException("File delete error", file.getName());
         }
     }
-
-    protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
-
-    protected abstract Resume doRead(InputStream is) throws IOException;
 }
