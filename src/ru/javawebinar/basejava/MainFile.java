@@ -1,20 +1,27 @@
 package ru.javawebinar.basejava;
 
+import ru.javawebinar.basejava.exception.StorageException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class MainFile {
 
-    public static void printDirectoryDeeply(String path) {
-        File dir = new File(path);
+    public static void printDirectoryDeeply(File dir) {
         File[] files = dir.listFiles();
+
         if (files != null) {
-            for (File name : files) {
-                if (!name.isDirectory()) {
-                    System.out.println(name.getName());
-                } else {
-                    printDirectoryDeeply(name.getAbsolutePath());
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.printf("%10s%s%n","File: ",file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println("Directory: " + file.getName());
+                    printDirectoryDeeply(file);
                 }
             }
         }
@@ -46,7 +53,7 @@ public class MainFile {
         }
 
         System.out.println("Рекурсивный обход и вывод имени файлов в каталогах и подкаталогах");
-
-        printDirectoryDeeply("./src/ru/javawebinar/basejava");
+        File file2 = new File("./src/ru/javawebinar/basejava");
+        printDirectoryDeeply(file2);
     }
 }
