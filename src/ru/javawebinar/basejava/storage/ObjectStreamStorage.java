@@ -6,7 +6,7 @@ import ru.javawebinar.basejava.strategy.Serialization;
 
 import java.io.*;
 
-public class ObjectStreamStorage  implements Serialization {
+public class ObjectStreamStorage implements Serialization {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {

@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapResumeStorage extends AbstractStorage <Resume> {
+public class MapResumeStorage extends AbstractStorage<Resume> {
 
-    protected  final Map<String, Resume> storage = new HashMap<>();
+    protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected void doSave(Resume searchKey, Resume r) {

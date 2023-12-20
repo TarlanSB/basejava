@@ -19,7 +19,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void doSave(Integer searchKey, Resume r) {
-        if(isNotSizeLimit(r)) {
+        if (isNotSizeLimit(r)) {
             storage[size] = r;
             size++;
         }
