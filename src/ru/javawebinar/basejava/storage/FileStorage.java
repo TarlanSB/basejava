@@ -2,7 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.strategy.Serialization;
+import ru.javawebinar.basejava.storage.strategy.Serialization;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import java.util.Objects;
 public class FileStorage extends AbstractStorage<File> {
 
     private final File directory;
-
     protected Serialization strategy;
 
     protected FileStorage(File directory) {
@@ -29,19 +28,8 @@ public class FileStorage extends AbstractStorage<File> {
 
     public FileStorage(File directory, Serialization strategy) {
         this(directory);
+        Objects.requireNonNull(strategy, "strategy must not be null");
         this.strategy = strategy;
-    }
-
-    public void setStrategy(Serialization strategy) {
-        this.strategy = strategy;
-    }
-
-    public Resume executeStrategy(InputStream is) {
-        try {
-            return strategy.doRead(is);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -84,36 +72,25 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAllSorted() {
+        File[] files = getAllFiles();
         List<Resume> list = new ArrayList<>();
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                list.add(doGet(file));
-            }
-            return list;
+        for (File file : files) {
+            list.add(doGet(file));
         }
-        throw new StorageException("Directory error", null);
+        return list;
     }
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
-        } else {
-            throw new StorageException("Directory error", null);
+        File[] files = getAllFiles();
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list != null) {
-            return list.length;
-        }
-        throw new StorageException("Directory read error", null);
+        return getAllFiles().length;
     }
 
     @Override
@@ -121,5 +98,13 @@ public class FileStorage extends AbstractStorage<File> {
         if (!file.delete()) {
             throw new StorageException("File delete error", file.getName());
         }
+    }
+
+    private File[] getAllFiles() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory read error", null);
+        }
+        return files;
     }
 }
