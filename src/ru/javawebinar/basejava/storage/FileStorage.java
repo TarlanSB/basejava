@@ -2,34 +2,31 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.storage.strategy.Serialization;
+import ru.javawebinar.basejava.storage.strategy.StreamSerializer;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 public class FileStorage extends AbstractStorage<File> {
 
     private final File directory;
-    protected Serialization strategy;
+    private final StreamSerializer strategy;
 
-    protected FileStorage(File directory) {
-        Objects.requireNonNull(directory, "directory must not be null");
-        if (!directory.isDirectory()) {
-            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
-        }
-        if (!directory.canRead() || !directory.canWrite()) {
-            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
-        }
-        this.directory = directory;
-    }
-
-    public FileStorage(File directory, Serialization strategy) {
-        this(directory);
+    protected FileStorage(File dir, StreamSerializer strategy) {
+        Objects.requireNonNull(dir, "directory must not be null");
         Objects.requireNonNull(strategy, "strategy must not be null");
+
         this.strategy = strategy;
+        if (!dir.isDirectory()) {
+            throw new IllegalArgumentException(dir.getAbsolutePath() + " is not directory");
+        }
+        if (!dir.canRead() || !dir.canWrite()) {
+            throw new IllegalArgumentException(dir.getAbsolutePath() + " is not readable/writable");
+        }
+
+        this.directory = dir;
     }
 
     @Override
