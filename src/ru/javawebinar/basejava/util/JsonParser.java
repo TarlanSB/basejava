@@ -6,10 +6,12 @@ import ru.javawebinar.basejava.model.AbstractSection;
 
 import java.io.Reader;
 import java.io.Writer;
+import java.time.LocalDate;
 
 public class JsonParser {
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(AbstractSection.class, new JsonSectionAdapter())
+            .registerTypeAdapter(AbstractSection.class, new JsonSectionAdapter<AbstractSection>())
+            .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
             .create();
 
     public static <T> T read(Reader reader, Class<T> clazz) {
