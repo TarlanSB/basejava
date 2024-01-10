@@ -21,18 +21,12 @@ public class DataStreamSerializer implements StreamSerializer {
             });
 
             Map<SectionType, AbstractSection> sections = r.getSections();
-//            writeWithException(dos,sections.entrySet(), entry -> {
-//                SectionType sectionType = entry.getKey();
-//                AbstractSection abstractSection = entry.getValue();
-//                dos.writeUTF(sectionType.name());
-//                writeSection(dos, sectionType, abstractSection);
-//            } );
-            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+            writeWithException(dos, sections.entrySet(), entry -> {
                 SectionType sectionType = entry.getKey();
                 AbstractSection abstractSection = entry.getValue();
                 dos.writeUTF(sectionType.name());
                 writeSection(dos, sectionType, abstractSection);
-            }
+            });
         }
     }
 
@@ -45,7 +39,7 @@ public class DataStreamSerializer implements StreamSerializer {
                 break;
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                writeWithException(dos, ((ListSection) abstractSection).getList(), string -> dos.writeUTF(string));
+                writeWithException(dos, ((ListSection) abstractSection).getList(), dos::writeUTF);
                 break;
             case EXPERIENCE:
             case EDUCATION:
@@ -104,7 +98,8 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void readSection(DataInputStream dis, Resume resume) throws IOException {
-        while (dis.available() > 0) {
+        final int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
             Map<SectionType, AbstractSection> sections = resume.getSections();
             SectionType sectionType = SectionType.valueOf(dis.readUTF());
             switch (sectionType) {
@@ -114,7 +109,7 @@ public class DataStreamSerializer implements StreamSerializer {
                     break;
                 case ACHIEVEMENT:
                 case QUALIFICATIONS:
-                    sections.put(sectionType, new ListSection(readWithException(dis, () -> dis.readUTF())));
+                    sections.put(sectionType, new ListSection(readWithException(dis, dis::readUTF)));
                     break;
                 case EXPERIENCE:
                 case EDUCATION:
