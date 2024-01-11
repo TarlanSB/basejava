@@ -88,13 +88,22 @@ public class DataStreamSerializer implements StreamSerializer {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
-            int size = dis.readInt();
-            for (int i = 0; i < size; i++) {
-                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            }
+            readContacts(dis, () -> resume.getContacts().put(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
+
             readSection(dis, resume);
             return resume;
         }
+    }
+
+    private void readContacts(DataInputStream dis, ContactDescription description) throws IOException {
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            description.doDescription();
+        }
+    }
+
+    private interface ContactDescription {
+        void doDescription() throws IOException;
     }
 
     private void readSection(DataInputStream dis, Resume resume) throws IOException {
