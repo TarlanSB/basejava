@@ -58,6 +58,10 @@ public class MainConcurrency {
             }
         });
         System.out.println(mainConcurrency.counter);
+
+        System.out.println("\nDEADLOCK");
+        deadlock(LOCK1, LOCK2);
+        deadlock(LOCK2, LOCK1);
     }
 
     private synchronized void inc() {
@@ -68,5 +72,28 @@ public class MainConcurrency {
 //                readFile
 //                ...
 //        }
+    }
+
+    private static final Object LOCK1 = new Object();
+    private static final Object LOCK2 = new Object();
+
+    private static void deadlock(Object lock1, Object lock2) {
+        new Thread(() -> {
+            System.out.println("Попытка захватить монитор объекта " + lock1);
+            synchronized (lock1) {
+                System.out.println("Монитор объекта " + lock1 + " захвачен");
+                System.out.println("Попытка захватить монитор объекта " + lock2);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (lock2) {
+                    System.out.println("Мониторы объектов " + lock1 + " и " + lock2 + " захвачены");
+                }
+                System.out.println("Монитор объектов " + lock2 + " отпущен, отпускаем " + lock1 + "\n" +
+                        "------------------------------------------------------------");
+            }
+        }).start();
     }
 }
