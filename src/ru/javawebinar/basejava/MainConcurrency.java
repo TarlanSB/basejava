@@ -1,14 +1,17 @@
 package ru.javawebinar.basejava;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.Collectors;
 
-
-
+import static java.util.stream.Collectors.collectingAndThen;
 
 
 public class MainConcurrency {
@@ -109,6 +112,19 @@ public class MainConcurrency {
 //                readFile
 //                ...
 //        }
+
+        int[] values = new int[]{5, 7, 3, 1, 2, 3, 3, 2, 3};
+        System.out.println("Результат метода int minValue(int[] values) через стрим " + minValue(values));
+
+        List<Integer> integers = new ArrayList<>();
+        integers.add(1);
+        integers.add(2);
+        integers.add(3);
+        integers.add(4);
+        integers.add(5);
+
+        System.out.println("Метод oddOrEven " + oddOrEven(integers));
+        System.out.println("Метод oddOrEven в одну строку " + oddOrEven2(integers));
     }
 
     private static final Object LOCK1 = new Object();
@@ -132,5 +148,32 @@ public class MainConcurrency {
                         "------------------------------------------------------------");
             }
         }).start();
+    }
+
+    private static int minValue(int[] values) {
+        return Arrays.stream(values)
+                .distinct()
+                .sorted()
+                .reduce(0, (a, b) -> 10 * a + b);
+    }
+
+    private static List<Integer> oddOrEven(List<Integer> integers) {
+        int sum = integers.stream().mapToInt(Integer::intValue).sum();
+        if (sum % 2 == 0) {
+            integers = integers.stream().filter(num -> num % 2 != 0).collect(Collectors.toList());
+        } else {
+            integers = integers.stream().filter(num -> num % 2 == 0).collect(Collectors.toList());
+        }
+        return integers;
+    }
+
+    public static List<Integer> oddOrEven2(List<Integer> values) {
+        return values.stream()
+                .collect(collectingAndThen(
+                        Collectors.groupingBy(i -> i % 2),
+                        map -> map.getOrDefault(
+                                (map.getOrDefault(1, List.of()).size() + 1)
+                                        % 2,
+                                List.of())));
     }
 }
