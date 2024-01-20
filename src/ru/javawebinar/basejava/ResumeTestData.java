@@ -78,20 +78,20 @@ public class ResumeTestData {
     public ResumeTestData() {
         this.resume = new Resume("Грикорий Кислин");
 
-        resume.addContact(ContactType.MOBILE_PHONE, mobilePhone);
-        resume.addContact(ContactType.SKYPE, skype);
-        resume.addContact(ContactType.EMAIL, email);
-        resume.addContact(ContactType.LINKEDIN, linkedIn);
-        resume.addContact(ContactType.GITHUB, github);
-        resume.addContact(ContactType.STACKOVERFLOW, stackoverflow);
-        resume.addContact(ContactType.HOME_PAGE, homePage);
-
-        resume.addSection(SectionType.PERSONAL, personal);
-        resume.addSection(SectionType.OBJECTIVE, objective);
-        resume.addSection(SectionType.ACHIEVEMENT, achievements);
-        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
-        resume.addSection(SectionType.EXPERIENCE, experience);//
-        resume.addSection(SectionType.EDUCATION, education);
+//        resume.addContact(ContactType.MOBILE_PHONE, mobilePhone);
+//        resume.addContact(ContactType.SKYPE, skype);
+//        resume.addContact(ContactType.EMAIL, email);
+//        resume.addContact(ContactType.LINKEDIN, linkedIn);
+//        resume.addContact(ContactType.GITHUB, github);
+//        resume.addContact(ContactType.STACKOVERFLOW, stackoverflow);
+//        resume.addContact(ContactType.HOME_PAGE, homePage);
+//
+//        resume.addSection(SectionType.PERSONAL, personal);
+//        resume.addSection(SectionType.OBJECTIVE, objective);
+//        resume.addSection(SectionType.ACHIEVEMENT, achievements);
+//        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
+//        resume.addSection(SectionType.EXPERIENCE, experience);//
+//        resume.addSection(SectionType.EDUCATION, education);
     }
 
     public Resume createResume(String uuid, String fullName) {
