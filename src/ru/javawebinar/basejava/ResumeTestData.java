@@ -96,20 +96,20 @@ public class ResumeTestData {
 
     public Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
-        resume.getContacts().put(ContactType.SKYPE, skype);
-        resume.getContacts().put(ContactType.EMAIL, email);
-        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
-        resume.getContacts().put(ContactType.GITHUB, github);
-        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
-        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
-
-        resume.getSections().put(SectionType.PERSONAL, personal);
-        resume.getSections().put(SectionType.OBJECTIVE, objective);
-        resume.getSections().put(SectionType.ACHIEVEMENT, achievements);
-        resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
-        resume.getSections().put(SectionType.EXPERIENCE, experience);
-        resume.getSections().put(SectionType.EDUCATION, education);
+//        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
+//        resume.getContacts().put(ContactType.SKYPE, skype);
+//        resume.getContacts().put(ContactType.EMAIL, email);
+//        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
+//        resume.getContacts().put(ContactType.GITHUB, github);
+//        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
+//        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
+//
+//        resume.getSections().put(SectionType.PERSONAL, personal);
+//        resume.getSections().put(SectionType.OBJECTIVE, objective);
+//        resume.getSections().put(SectionType.ACHIEVEMENT, achievements);
+//        resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
+//        resume.getSections().put(SectionType.EXPERIENCE, experience);
+//        resume.getSections().put(SectionType.EDUCATION, education);
 
         return resume;
     }
