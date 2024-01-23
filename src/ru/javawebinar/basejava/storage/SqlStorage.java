@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
@@ -47,7 +48,10 @@ public class SqlStorage implements Storage {
              PreparedStatement ps = conn.prepareStatement("UPDATE resume  SET full_name = ? WHERE uuid = ?")) {
             ps.setString(1, r.getFullName());
             ps.setString(2, r.getUuid());
-            ps.execute();
+            int rowsUpdated = ps.executeUpdate();
+            if (rowsUpdated == 0) {
+                throw new NotExistStorageException(r.getUuid());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +65,7 @@ public class SqlStorage implements Storage {
             ps.setString(2, r.getFullName());
             ps.execute();
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw new ExistStorageException(r.getUuid());
         }
     }
 
@@ -70,7 +74,11 @@ public class SqlStorage implements Storage {
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement("DELETE FROM resume WHERE uuid = ?")) {
             ps.setString(1, uuid);
-            ps.execute();
+            // ps.execute();
+            int rowsDeleted = ps.executeUpdate();
+            if (rowsDeleted == 0) {
+                throw new NotExistStorageException(uuid);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

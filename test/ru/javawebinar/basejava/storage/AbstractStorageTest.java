@@ -11,6 +11,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 public class AbstractStorageTest {
 
@@ -19,19 +20,19 @@ public class AbstractStorageTest {
 
     protected static final ResumeTestData RESUME_FACTORY = new ResumeTestData();
 
-    private static final String UUID_1 = "uuid1";
+    private static final String UUID_1 = UUID.randomUUID().toString();
     private static final String FULL_NAME_1 = "fullName1";
     private static final Resume RESUME_1 = RESUME_FACTORY.createResume(UUID_1, FULL_NAME_1);
 
-    private static final String UUID_2 = "uuid2";
+    private static final String UUID_2 = UUID.randomUUID().toString();
     private static final String FULL_NAME_2 = "fullName2";
     private static final Resume RESUME_2 = RESUME_FACTORY.createResume(UUID_2, FULL_NAME_2);
 
-    private static final String UUID_3 = "uuid3";
+    private static final String UUID_3 = UUID.randomUUID().toString();
     private static final String FULL_NAME_3 = "fullName3";
     private static final Resume RESUME_3 = RESUME_FACTORY.createResume(UUID_3, FULL_NAME_3);
 
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_4 = UUID.randomUUID().toString();
     private static final String FULL_NAME_4 = "fullName4";
     private static final Resume RESUME_4 = RESUME_FACTORY.createResume(UUID_4, FULL_NAME_4);
 
