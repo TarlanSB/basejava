@@ -19,7 +19,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        sqlHelper.execute("DELETE FROM resume");
+        sqlHelper.execute("DELETE FROM resume", PreparedStatement::execute);
     }
 
     @Override
@@ -52,11 +52,7 @@ public class SqlStorage implements Storage {
         sqlHelper.execute("INSERT INTO resume (uuid, full_name) VALUES (?,?)", ps -> {
             ps.setString(1, r.getUuid());
             ps.setString(2, r.getFullName());
-            try {
-                ps.execute();
-            } catch (SQLException e){
-                throw  new ExistStorageException(r.getUuid());
-            }
+            ps.execute();
             return null;
         });
     }
@@ -75,24 +71,20 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> list = new ArrayList<>();
-       return sqlHelper.execute("SELECT * FROM resume ORDER BY (full_name, uuid)", ps ->{
+        return sqlHelper.execute("SELECT * FROM resume ORDER BY (full_name, uuid)", ps -> {
             ResultSet rs = ps.executeQuery();
-
+            final List<Resume> resumeList = new ArrayList<>();
             while (rs.next()) {
-                String uuid = rs.getString("uuid");
-                String fullName = rs.getString("full_name");
-                Resume resume = new Resume(uuid, fullName);
-
-                list.add(resume);
+                resumeList.add(new Resume(rs.getString("uuid"), rs.getString("full_name")));
             }
-            return list;
+            return resumeList;
         });
     }
 
+
     @Override
     public int size() {
-       return sqlHelper.execute("SELECT COUNT(*) FROM resume", ps -> {
+        return sqlHelper.execute("SELECT COUNT(*) FROM resume", ps -> {
             ResultSet rs = ps.executeQuery();
             rs.next();
             return rs.getInt(1);
