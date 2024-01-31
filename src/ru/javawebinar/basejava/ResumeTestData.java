@@ -78,13 +78,13 @@ public class ResumeTestData {
     public ResumeTestData() {
         this.resume = new Resume("Грикорий Кислин");
 
-//        resume.addContact(ContactType.MOBILE_PHONE, mobilePhone);
-//        resume.addContact(ContactType.SKYPE, skype);
-//        resume.addContact(ContactType.EMAIL, email);
-//        resume.addContact(ContactType.LINKEDIN, linkedIn);
-//        resume.addContact(ContactType.GITHUB, github);
-//        resume.addContact(ContactType.STACKOVERFLOW, stackoverflow);
-//        resume.addContact(ContactType.HOME_PAGE, homePage);
+        resume.addContact(ContactType.MOBILE_PHONE, mobilePhone);
+        resume.addContact(ContactType.SKYPE, skype);
+        resume.addContact(ContactType.EMAIL, email);
+        resume.addContact(ContactType.LINKEDIN, linkedIn);
+        resume.addContact(ContactType.GITHUB, github);
+        resume.addContact(ContactType.STACKOVERFLOW, stackoverflow);
+        resume.addContact(ContactType.HOME_PAGE, homePage);
 //
 //        resume.addSection(SectionType.PERSONAL, personal);
 //        resume.addSection(SectionType.OBJECTIVE, objective);
@@ -96,13 +96,13 @@ public class ResumeTestData {
 
     public Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-//        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
-//        resume.getContacts().put(ContactType.SKYPE, skype);
-//        resume.getContacts().put(ContactType.EMAIL, email);
-//        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
-//        resume.getContacts().put(ContactType.GITHUB, github);
-//        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
-//        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
+        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
+        resume.getContacts().put(ContactType.SKYPE, skype);
+        resume.getContacts().put(ContactType.EMAIL, email);
+        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
+        resume.getContacts().put(ContactType.GITHUB, github);
+        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
+        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
 //
 //        resume.getSections().put(SectionType.PERSONAL, personal);
 //        resume.getSections().put(SectionType.OBJECTIVE, objective);
