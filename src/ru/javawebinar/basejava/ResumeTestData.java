@@ -11,16 +11,6 @@ import static ru.javawebinar.basejava.util.DateUtil.of;
 
 public class ResumeTestData {
 
-    private final Resume resume;
-
-    private final String mobilePhone = "+7(921) 855-0482";
-    private final String skype = "grigory.kislin";
-    private final String email = "gkislin@yandex.ru";
-    private final String linkedIn = "https://www.linkedin.com/in/gkislin";
-    private final String github = "https://github.com/gkislin";
-    private final String stackoverflow = "https://stackoverflow.com/users/548473";
-    private final String homePage = "http://gkislin.ru/";
-
     private final AbstractSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, " +
             "инициативность. Пурист кода и архитектуры.");
 
@@ -76,76 +66,26 @@ public class ResumeTestData {
     protected AbstractSection education = new OrganizationSection(organization3);
 
     public ResumeTestData() {
-        this.resume = new Resume("Грикорий Кислин");
-
-        resume.addContact(ContactType.MOBILE_PHONE, mobilePhone);
-        resume.addContact(ContactType.SKYPE, skype);
-        resume.addContact(ContactType.EMAIL, email);
-        resume.addContact(ContactType.LINKEDIN, linkedIn);
-        resume.addContact(ContactType.GITHUB, github);
-        resume.addContact(ContactType.STACKOVERFLOW, stackoverflow);
-        resume.addContact(ContactType.HOME_PAGE, homePage);
-//
-//        resume.addSection(SectionType.PERSONAL, personal);
-//        resume.addSection(SectionType.OBJECTIVE, objective);
-//        resume.addSection(SectionType.ACHIEVEMENT, achievements);
-//        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
-//        resume.addSection(SectionType.EXPERIENCE, experience);//
-//        resume.addSection(SectionType.EDUCATION, education);
     }
 
     public Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-        resume.getContacts().put(ContactType.MOBILE_PHONE, mobilePhone);
-        resume.getContacts().put(ContactType.SKYPE, skype);
-        resume.getContacts().put(ContactType.EMAIL, email);
-        resume.getContacts().put(ContactType.LINKEDIN, linkedIn);
-        resume.getContacts().put(ContactType.GITHUB, github);
-        resume.getContacts().put(ContactType.STACKOVERFLOW, stackoverflow);
-        resume.getContacts().put(ContactType.HOME_PAGE, homePage);
-//
-//        resume.getSections().put(SectionType.PERSONAL, personal);
-//        resume.getSections().put(SectionType.OBJECTIVE, objective);
-//        resume.getSections().put(SectionType.ACHIEVEMENT, achievements);
-//        resume.getSections().put(SectionType.QUALIFICATIONS, qualifications);
-//        resume.getSections().put(SectionType.EXPERIENCE, experience);
-//        resume.getSections().put(SectionType.EDUCATION, education);
+
+        resume.addContact(ContactType.MOBILE_PHONE, "+7(909) 987-1946");
+        resume.addContact(ContactType.SKYPE, "");
+        resume.addContact(ContactType.EMAIL, "tarlanworkmail@gmail.com");
+        resume.addContact(ContactType.LINKEDIN, "");
+        resume.addContact(ContactType.GITHUB, "https://github.com/TarlanSB");
+        resume.addContact(ContactType.STACKOVERFLOW, "");
+        resume.addContact(ContactType.HOME_PAGE, "");
+
+        resume.addSection(SectionType.PERSONAL, personal);
+        resume.addSection(SectionType.OBJECTIVE, objective);
+        resume.addSection(SectionType.ACHIEVEMENT, achievements);
+        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
+        resume.addSection(SectionType.EXPERIENCE, experience);//
+        resume.addSection(SectionType.EDUCATION, education);
 
         return resume;
-    }
-
-    public static void main(String[] args) {
-        ResumeTestData resumeTestData = new ResumeTestData();
-
-        System.out.println(resumeTestData.getResume());
-
-        for (Map.Entry<ContactType, String> entry : resumeTestData.getResume().getContacts().entrySet()) {
-            System.out.println(entry.getKey().getTitle() + " " + entry.getValue());
-        }
-
-        for (Map.Entry<SectionType, AbstractSection> entry : resumeTestData.getResume().getSections().entrySet()) {
-            System.out.println("\n" + entry.getKey().getTitle() + ":\n" + entry.getValue());
-        }
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(resume, mobilePhone, skype, email, linkedIn, github, stackoverflow, homePage, personal,
-                objective, achievements, qualifications, startDate1, endDate1, position1, organization1, startDate2, endDate2,
-                position2, organization2, experience, startDate3, endDate3, position3, startDate4, endDate4, position4, organization3,
-                education);
-    }
-
-    @Override
-    public String toString() {
-        return "ResumeTestData{" +
-                "resume=" + resume +
-                '}';
     }
 }
-
