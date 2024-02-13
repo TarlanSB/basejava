@@ -22,19 +22,19 @@ public class AbstractStorageTest {
 
     private static final String UUID_1 = UUID.randomUUID().toString();
     private static final String FULL_NAME_1 = "fullName1";
-    private static final Resume RESUME_1 = RESUME_FACTORY.createResume(UUID_1, FULL_NAME_1);
+    public static final Resume RESUME_1 = RESUME_FACTORY.createResume(UUID_1, FULL_NAME_1);
 
     private static final String UUID_2 = UUID.randomUUID().toString();
     private static final String FULL_NAME_2 = "fullName2";
-    private static final Resume RESUME_2 = RESUME_FACTORY.createResume(UUID_2, FULL_NAME_2);
+    public static final Resume RESUME_2 = RESUME_FACTORY.createResume(UUID_2, FULL_NAME_2);
 
     private static final String UUID_3 = UUID.randomUUID().toString();
     private static final String FULL_NAME_3 = "fullName3";
-    private static final Resume RESUME_3 = RESUME_FACTORY.createResume(UUID_3, FULL_NAME_3);
+    public static final Resume RESUME_3 = RESUME_FACTORY.createResume(UUID_3, FULL_NAME_3);
 
     private static final String UUID_4 = UUID.randomUUID().toString();
     private static final String FULL_NAME_4 = "fullName4";
-    private static final Resume RESUME_4 = RESUME_FACTORY.createResume(UUID_4, FULL_NAME_4);
+    public static final Resume RESUME_4 = RESUME_FACTORY.createResume(UUID_4, FULL_NAME_4);
 
     private static final int SIZE = 3;
     private static final String UUID_NOT_EXIST = "dummy";
