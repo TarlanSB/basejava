@@ -17,7 +17,10 @@
         <c:forEach var="contactEntry" items="${resume.contacts}">
             <jsp:useBean id="contactEntry"
                          type="java.util.Map.Entry<ru.javawebinar.basejava.model.ContactType, java.lang.String>"/>
+                <% String value = contactEntry.getValue(); %>
+        <c:if test="<%=value != null && value.trim().length() != 0%>">
                 <%=contactEntry.getKey().toHtml(contactEntry.getValue())%><br/>
+        </c:if>
         </c:forEach>
     <p>
     <hr>
@@ -27,42 +30,46 @@
                          type="java.util.Map.Entry<ru.javawebinar.basejava.model.SectionType, ru.javawebinar.basejava.model.AbstractSection>"/>
             <c:set var="type" value="${sectionEntry.key}"/>
             <c:set var="section" value="${sectionEntry.value}"/>
-            <jsp:useBean id="section" type="ru.javawebinar.basejava.model.AbstractSection"/>
-            <tr>
-                <td colspan="2"><h2><a name="type.name">${type.title}</a></h2></td>
-            </tr>
-            <c:choose>
-                <c:when test="${type=='OBJECTIVE'}">
-                    <tr>
-                        <td colspan="2">
-                            <h3><%=((TextSection) section).getText()%></h3>
-                        </td>
-                    </tr>
-                </c:when>
-                <c:when test="${type=='PERSONAL'}">
-                    <tr>
-                        <td colspan="2">
-                            <%=((TextSection) section).getText()%>
-                        </td>
-                    </tr>
-                </c:when>
-                <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
-                    <tr>
-                        <td colspan="2">
-                            <ul>
-                                <c:forEach var="item" items="<%=((ListSection) section).getList()%>">
-                                    <li>${item}</li>
-                                </c:forEach>
-                            </ul>
-                        </td>
-                    </tr>
-                </c:when>
-            </c:choose>
+            <% String value = sectionEntry.getValue().toString(); %>
+            <c:if test="<%=value != null && value.trim().length() != 0%>">
+                <jsp:useBean id="section" type="ru.javawebinar.basejava.model.AbstractSection"/>
+                <tr>
+                    <td colspan="2"><h2><a name="type.name">${type.title}</a></h2></td>
+                </tr>
+                <c:choose>
+                    <c:when test="${type=='OBJECTIVE'}">
+                        <tr>
+                            <td colspan="2">
+                                <h3><%=((TextSection) section).getText()%>
+                                </h3>
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:when test="${type=='PERSONAL'}">
+                        <tr>
+                            <td colspan="2">
+                                <%=((TextSection) section).getText()%>
+                            </td>
+                        </tr>
+                    </c:when>
+                    <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
+                        <tr>
+                            <td colspan="2">
+                                <ul>
+                                    <c:forEach var="item" items="<%=((ListSection) section).getList()%>">
+                                        <li>${item}</li>
+                                    </c:forEach>
+                                </ul>
+                            </td>
+                        </tr>
+                    </c:when>
+                </c:choose>
+            </c:if>
         </c:forEach>
     </table>
     <br/>
     <button onclick="window.history.back()">ОК</button>
-</section>
+    </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
