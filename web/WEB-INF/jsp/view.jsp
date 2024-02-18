@@ -68,7 +68,7 @@
         </c:forEach>
     </table>
     <br/>
-    <button onclick="window.history.back()">ОК</button>
+    <button type="button" onclick="window.history.back()">ОК</button>
     </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

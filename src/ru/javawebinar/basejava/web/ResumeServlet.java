@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class ResumeServlet extends HttpServlet {
@@ -50,16 +51,15 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        r.setSection(type, new ListSection(value.split("\\n")));// ?
+                        r.setSection(type,  new ListSection(Arrays.asList(value.split("\\n"))));// ?
                         break;
-
                     case EXPERIENCE:
                     case EDUCATION:
                 }
-                storage.update(r);
-                response.sendRedirect("resume");
             }
         }
+        storage.update(r);
+        response.sendRedirect("resume");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
