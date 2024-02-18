@@ -31,7 +31,7 @@
             <c:set var="type" value="${sectionEntry.key}"/>
             <c:set var="section" value="${sectionEntry.value}"/>
             <% String value = sectionEntry.getValue().toString(); %>
-            <c:if test="<%=value != null && value.trim().length() != 0%>">
+<%--            <c:if test="<%=value != null && value.trim().length() != 0%>">--%>
                 <jsp:useBean id="section" type="ru.javawebinar.basejava.model.AbstractSection"/>
                 <tr>
                     <td colspan="2"><h2><a name="type.name">${type.title}</a></h2></td>
@@ -64,7 +64,7 @@
                         </tr>
                     </c:when>
                 </c:choose>
-            </c:if>
+<%--            </c:if>--%>
         </c:forEach>
     </table>
     <br/>

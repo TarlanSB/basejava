@@ -1,8 +1,7 @@
 package ru.javawebinar.basejava.web;
 
 import ru.javawebinar.basejava.Config;
-import ru.javawebinar.basejava.model.ContactType;
-import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.*;
 import ru.javawebinar.basejava.storage.Storage;
 
 import javax.servlet.ServletConfig;
@@ -31,14 +30,36 @@ public class ResumeServlet extends HttpServlet {
         r.setFullName(fullName);
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
-            if (value != null && value.trim().length() != 0) {
-                r.addContact(type, value);
-            } else {
+            if (value == null || value.trim().length() == 0) {
                 r.getContacts().remove(type);
+            } else {
+                r.setContact(type, value);
             }
         }
-        storage.update(r);
-        response.sendRedirect("resume");
+
+        for (SectionType type : SectionType.values()) {
+            String value = request.getParameter(type.name());
+            String[] values = request.getParameterValues(type.name());
+            if (value == null || value.trim().length() == 0 && values.length < 2) {
+                r.getSections().remove(type);
+            } else {
+                switch (type) {
+                    case OBJECTIVE:
+                    case PERSONAL:
+                        r.setSection(type, new TextSection(value));// ?
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        r.setSection(type, new ListSection(value.split("\\n")));// ?
+                        break;
+
+                    case EXPERIENCE:
+                    case EDUCATION:
+                }
+                storage.update(r);
+                response.sendRedirect("resume");
+            }
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -58,6 +79,7 @@ public class ResumeServlet extends HttpServlet {
             case "view":
             case "edit":
                 r = storage.get(uuid);
+
                 break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");

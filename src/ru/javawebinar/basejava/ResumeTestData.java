@@ -86,20 +86,20 @@ public class ResumeTestData {
     public Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
 
-        resume.addContact(ContactType.MOBILE_PHONE, "+7(909) 987-1946");
-        resume.addContact(ContactType.SKYPE, "");
-        resume.addContact(ContactType.EMAIL, "tarlanworkmail@gmail.com");
-        resume.addContact(ContactType.LINKEDIN, "");
-        resume.addContact(ContactType.GITHUB, "https://github.com/TarlanSB");
-        resume.addContact(ContactType.STACKOVERFLOW, "");
-        resume.addContact(ContactType.HOME_PAGE, "");
+        resume.setContact(ContactType.MOBILE_PHONE, "+7(909) 987-1946");
+        resume.setContact(ContactType.SKYPE, "");
+        resume.setContact(ContactType.EMAIL, "tarlanworkmail@gmail.com");
+        resume.setContact(ContactType.LINKEDIN, "");
+        resume.setContact(ContactType.GITHUB, "https://github.com/TarlanSB");
+        resume.setContact(ContactType.STACKOVERFLOW, "");
+        resume.setContact(ContactType.HOME_PAGE, "");
 
-        resume.addSection(SectionType.PERSONAL, personal);
-        resume.addSection(SectionType.OBJECTIVE, objective);
-        resume.addSection(SectionType.ACHIEVEMENT, achievements);
-        resume.addSection(SectionType.QUALIFICATIONS, qualifications);
-        resume.addSection(SectionType.EXPERIENCE, experience);//
-        resume.addSection(SectionType.EDUCATION, education);
+        resume.setSection(SectionType.PERSONAL, personal);
+        resume.setSection(SectionType.OBJECTIVE, objective);
+        resume.setSection(SectionType.ACHIEVEMENT, achievements);
+        resume.setSection(SectionType.QUALIFICATIONS, qualifications);
+        resume.setSection(SectionType.EXPERIENCE, experience);//
+        resume.setSection(SectionType.EDUCATION, education);
 
         return resume;
     }
