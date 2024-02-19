@@ -15,11 +15,14 @@ import java.util.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
 
+
     @Serial
     private static final long serialVersionUID = 1L;
     // Unique identifier
     private String uuid;
     private String fullName;
+
+    public static final Resume EMPTY = new Resume();
 
     private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 

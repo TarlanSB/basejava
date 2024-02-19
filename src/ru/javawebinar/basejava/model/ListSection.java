@@ -12,6 +12,7 @@ public class ListSection extends AbstractSection implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private  List<String> list;
+    public static final ListSection EMPTY = new ListSection("");
 
     public ListSection() {
     }
