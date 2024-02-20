@@ -10,7 +10,6 @@ public class TextSection extends AbstractSection  {
     public static final TextSection EMPTY = new TextSection("");
     private String text;
 
-
     public TextSection() {
     }
 
