@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.util;
 
-import ru.javawebinar.basejava.web.ResumeServlet;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
@@ -23,6 +21,6 @@ public class DateUtil {
 
     public static String format(LocalDate date) {
         if (date == null) return "";
-        return date.equals(NOW) ? "Сейчас" : date.format(DATE_FORMATTER);
+        return date.equals(NOW) || date.isAfter(LocalDate.now()) ? "Сейчас" : date.format(DATE_FORMATTER);
     }
 }
